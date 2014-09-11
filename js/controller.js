@@ -1,23 +1,4 @@
 
-BookCollection.prototype.addBook = function (book) {
-	this.books.push(book);
-	$.publish('book-added', book);
-	return book;
-};
-
-BookCollection.prototype.removeBook = function (book) {
-   var removed;
-   if (typeof book === 'number') {
-	   removed = this.books.splice(book, 1);
-   }
-   for (var i = 0; i < this.books.length; i += 1) {
-	  if (this.books[i] === book) {
-		  removed = this.books.splice(i, 1);
-	  }
-   }
-   $.publish('book-removed', removed);
-   return removed;
-};
 
 var topics = {};
  
@@ -76,6 +57,7 @@ jQuery.Topic = function( id ) {
 })();
 
 
+
 /*******************************************
 // Subscribers
 $.Topic( "mailArrived" ).subscribe( fn1 );
@@ -96,3 +78,22 @@ hello world!
 fn2 says: hello world!
 woo! mail!
 ********************************/
+// BookCollection.prototype.addBook = function (book) {
+// 	this.books.push(book);
+// 	$.publish('book-added', book);
+// 	return book;
+// };
+
+// BookCollection.prototype.removeBook = function (book) {
+//    var removed;
+//    if (typeof book === 'number') {
+// 	   removed = this.books.splice(book, 1);
+//    }
+//    for (var i = 0; i < this.books.length; i += 1) {
+// 	  if (this.books[i] === book) {
+// 		  removed = this.books.splice(i, 1);
+// 	  }
+//    }
+//    $.publish('book-removed', removed);
+//    return removed;
+// };
