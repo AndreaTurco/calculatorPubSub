@@ -1,23 +1,23 @@
 
 
-var topics = {};
+var operations = {};
  
-jQuery.Topic = function( id ) {
+$.Operation = function( operToDo ) {
   var callbacks, method,
-	topic = id && topics[ id ];
+	operation = operToDo && operations[ operToDo ];
  
-  if ( !topic ) {
+  if ( !operation ) {
 	callbacks = jQuery.Callbacks();
-	topic = {
+	operation = {
 	  publish: callbacks.fire,
 	  subscribe: callbacks.add,
 	  unsubscribe: callbacks.remove
 	};
-	if ( id ) {
-	  topics[ id ] = topic;
+	if ( operToDo ) {
+	  operations[ operToDo ] = operation;
 	}
   }
-  return topic;
+  return operation;
 };
 
 (function(){
@@ -25,6 +25,7 @@ jQuery.Topic = function( id ) {
 	if( typeof $M === 'undefined' ) { $M = {}; }
 
 	var init = function ( value ){
+		console.log(value.firstMember + value.secondMember);
 		return value.firstMember + value.secondMember;
 	};
 
@@ -53,6 +54,43 @@ jQuery.Topic = function( id ) {
 	};
 
 	$M.subtraction = init;
+
+})();
+
+(function(){
+
+	if( typeof $M === 'undefined' ) { $M = {}; }
+
+	var init = function (){
+        $('#firstMember').val("");
+        $('#secondMember').val("");
+        $('#operToDo').val("");
+		return;
+	};
+
+	$M.resetAll = init;
+
+})();
+
+(function(){
+
+	if( typeof $M === 'undefined' ) { $M = {}; }
+
+	var init = function (){
+        var operValue = {
+                firstMember : parseFloat($('#firstMember').val()),
+                secondMember : parseFloat($('#secondMember').val())
+            },
+            operToDo = $('#operToDo').val();
+
+        // Publisher
+        var resultToShow = $.Operation( operToDo ).publish( operValue );
+        $M.updateValueToShow(resultToShow);
+        
+        return;
+	};
+
+	$M.doOperationShowResult = init;
 
 })();
 

@@ -1,23 +1,26 @@
 
 //View
-var BookListView = (function () {
 
-   function removeBook(book) {
-      $('#' + book.isbn).remove();
-   }
+var createHTMLbutton = (function( type , data ){
+    return '<input class="button"'/
+        ' datatype="'+ type +'" type="text" value="'+ data.value +'">'/
+            +data.label+'/' +
+        '</input>';
+})();
 
-   function addBook(book) {
-      $('#bookList').append('<div id="' + book.isbn + '">' + book.name + '</div>');
-   }
+(function(){
 
-   return {
-      init: function () {
-         $.subscribe('book-removed', function (book) {
-             removeBook(book);
-         });
-         $.subscribe('book-aded', function (book) {
-             addBook(book);
-         });
-      }
-   }
-}());
+    if( typeof $M === 'undefined' ) { $M = {}; }
+
+    var init = function ( buttonsToRender ){
+        var htmlToAppend = "";
+        $.forEach(buttonsToRender, function( type, data ){
+            htmlToAppend += createHTMLbutton(type, data);
+        });
+        return htmlToAppend;
+    };
+
+    $M.getHTMLbuttons = init;
+
+})();
+

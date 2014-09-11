@@ -6,17 +6,33 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css" />
-		<noscript>
-			<link rel="stylesheet" href="css/style.css" />
-		</noscript>
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+
 	</head>
 	<body>
+        <div id="container">
+            <section id="wrapper">
+                <section class="displayNumber"></section>
+                <section class="numbersWrapper"></section>
+                <section class="operatorsWrapper"></section>
 
+                <input id="firstMember" type="hidden" value="">
+                <input id="secondMember" type="hidden" value="">
+                <input id="operToDo" type="hidden" value="">
+
+                <!--da consoderare se questo tasto deve essere visualizzato
+                <button id="doOperation">Avvia calcolo</button>
+                -->
+            </section>
+            <footer class="footer">
+                <h5>test andrea turco for home24 frontend developer position - 2014</h5>
+            </footer>
+        </div>
 	</body>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="js/script.js"></script>
 	<script src="js/module.js"></script>
-	<script src="js/controller.js"></script>
 	<script src="js/view.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/controller.js"></script>
 </html>
