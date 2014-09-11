@@ -86,7 +86,7 @@ $.Operation = function( operToDo ) {
         // Publisher
         var resultToShow = $.Operation( operToDo ).publish( operValue );
         $M.updateValueToShow(resultToShow);
-        
+
         return;
 	};
 

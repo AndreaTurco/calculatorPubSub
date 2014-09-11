@@ -14,13 +14,21 @@ var createHTMLbutton = (function( type , data ){
 
     var init = function ( buttonsToRender ){
         var htmlToAppend = "";
-        $.forEach(buttonsToRender, function( type, data ){
-            htmlToAppend += createHTMLbutton(type, data);
+        $.forEach(buttonsToRender, function( type, v ){
+            htmlToAppend += '<section class="'+ type +'Wrapper">';
+            $.forEach(buttonsToRender, function( k, data ){
+                htmlToAppend += createHTMLbutton(type, data);
+            });
+            htmlToAppend += '</section>';
         });
-        return htmlToAppend;
+
+        $('#wrapper').append(htmlToAppend);
+
+        return;
     };
 
     $M.getHTMLbuttons = init;
 
 })();
+
 
