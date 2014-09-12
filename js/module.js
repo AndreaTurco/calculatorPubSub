@@ -17,8 +17,14 @@ var buttonsToRender = {
     "logicalOper": {
         "+" : "addOper",
         "-" : "subOper",
-        "*" : "moltOper",
-        "C" : "cancOper",
+        "*" : "moltOper"
+    },
+
+    "cancel" : {
+        "C" : "cancOper"
+    },
+
+    "result" : {
         "=" : "doOperation"
     }
 };

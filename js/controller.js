@@ -25,8 +25,9 @@ $.Operation = function( operToDo ) {
 	if( typeof $M === 'undefined' ) { $M = {}; }
 
 	var init = function ( value ){
-		console.log(value.firstMember + value.secondMember);
-		return value.firstMember + value.secondMember;
+        var result = value.firstMember + value.secondMember;
+        $('#result').val(result);
+		return result;
 	};
 
 	$M.addition = init;
@@ -38,7 +39,9 @@ $.Operation = function( operToDo ) {
 	if( typeof $M === 'undefined' ) { $M = {}; }
 
 	var init = function ( value ){
-		return value.firstMember * value.secondMember;
+        var result = value.firstMember * value.secondMember;
+        $('#result').val(result);
+        return result;
 	};
 
 	$M.multiplication = init;
@@ -50,7 +53,9 @@ $.Operation = function( operToDo ) {
 	if( typeof $M === 'undefined' ) { $M = {}; }
 
 	var init = function ( value ){
-		return value.firstMember - value.secondMember;
+        var result = value.firstMember - value.secondMember;
+        $('#result').val(result);
+        return result;
 	};
 
 	$M.subtraction = init;
@@ -65,6 +70,7 @@ $.Operation = function( operToDo ) {
         $('#firstMember').val("");
         $('#secondMember').val("");
         $('#operToDo').val("");
+        $('#result').val("");
 		return;
 	};
 
@@ -85,12 +91,85 @@ $.Operation = function( operToDo ) {
 
         // Publisher
         var resultToShow = $.Operation( operToDo ).publish( operValue );
-        $M.updateValueToShow(resultToShow);
 
         return;
 	};
 
 	$M.doOperationShowResult = init;
+
+})();
+
+(function(){
+
+	if( typeof $M === 'undefined' ) { $M = {}; }
+
+	var init = function (lastPressedButton){
+        var $firstMember = $('#firstMember'),
+            $secondMember = $('#secondMember'),
+            $numberShowed = $('#numberShowed'),
+            $result = $('#result'),
+            $operToDo = $('#operToDo'),
+            $this = $(lastPressedButton),
+            temp = '';
+
+        switch( $this.attr('datatype') ){
+            case 'numbers':
+                if($result.val() == '') {
+                    if( $operToDo.val() == '' ){
+                        temp = $firstMember.val() + $this.val();
+                        $firstMember.val( temp );
+                    }
+                    else{
+                        temp = $secondMember.val() + $this.val();
+                        $secondMember.val(temp);
+                    }
+                }else {
+                    $.Operation( "cancOper" ).publish();
+                    temp = $this.val();
+                    $firstMember.val( temp );
+                }
+                break;
+            case 'logicalOper' :
+                if($result.val() == '') {
+                    if( $secondMember.val() == '' ) {
+                        temp = $this.html();
+                        $operToDo.val($this.val());
+                    } else {
+                        $.Operation( 'doOperation' ).publish();
+                        temp = $this.html();
+                        $firstMember.val( $result.val() );
+                        $operToDo.val($this.val());
+                    }
+                } else {
+                    temp = $this.html();
+                    $firstMember.val( $result.val() );
+                    $operToDo.val($this.val());
+                }
+                break;
+
+            case 'cancel':
+                $.Operation( "cancOper" ).publish();
+                temp = '0';
+                break;
+
+            case 'result':
+                if($result.val() == '') {
+                    if( $secondMember.val() == '' ){
+                        temp =  $firstMember.val();
+                    } else {
+                        $.Operation( 'doOperation' ).publish();
+                        temp = $result.val();
+                        $firstMember.val( temp );
+                    }
+                }
+                break;
+
+        }
+        $numberShowed.val(temp)
+        return;
+	};
+
+	$M.updateValueToShow = init;
 
 })();
 

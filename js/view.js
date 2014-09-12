@@ -1,12 +1,11 @@
 
 //View
 
-var createHTMLbutton = (function( type , data ){
-    return '<input class="button"'/
-        ' datatype="'+ type +'" type="text" value="'+ data.value +'">'/
-            +data.label+'/' +
-        '</input>';
-})();
+var createHTMLbutton = function( type , label, value ){
+    var zeroCase = value == '0' ? 'zeroButton' : '';
+
+    return '<button class="button '+zeroCase+'" datatype="'+ type +'" type="text" value="'+ value +'">'+label+'</button>';
+};
 
 (function(){
 
@@ -14,10 +13,10 @@ var createHTMLbutton = (function( type , data ){
 
     var init = function ( buttonsToRender ){
         var htmlToAppend = "";
-        $.forEach(buttonsToRender, function( type, v ){
+        $.each(buttonsToRender, function( type, arr ){
             htmlToAppend += '<section class="'+ type +'Wrapper">';
-            $.forEach(buttonsToRender, function( k, data ){
-                htmlToAppend += createHTMLbutton(type, data);
+            $.each(arr, function( k, data ){
+                htmlToAppend += createHTMLbutton(type, k, data);
             });
             htmlToAppend += '</section>';
         });

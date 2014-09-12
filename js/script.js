@@ -20,4 +20,9 @@ $(document).ready(function(){
 //		$.Operation( operToDo ).publish( operValue );
 //	});
 
+
+	$('.button').on('click', function(){
+        $M.updateValueToShow(this);
+	});
+
 });
