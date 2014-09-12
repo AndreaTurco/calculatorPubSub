@@ -161,6 +161,10 @@ $.Operation = function( operToDo ) {
                         temp = $result.val();
                         $firstMember.val( temp );
                     }
+                } else {
+                    $.Operation( 'doOperation' ).publish();
+                    temp = $result.val();
+                    $firstMember.val( temp );
                 }
                 break;
 
