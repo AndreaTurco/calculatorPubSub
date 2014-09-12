@@ -107,6 +107,7 @@ $.Operation = function( operToDo ) {
         var $firstMember = $('#firstMember'),
             $secondMember = $('#secondMember'),
             $numberShowed = $('#numberShowed'),
+            $partial = $('#partial'),
             $result = $('#result'),
             $operToDo = $('#operToDo'),
             $this = $(lastPressedButton),
@@ -116,17 +117,26 @@ $.Operation = function( operToDo ) {
             case 'numbers':
                 if($result.val() == '') {
                     if( $operToDo.val() == '' ){
+                        //crete the first number
                         temp = $firstMember.val() + $this.val();
                         $firstMember.val( temp );
                     }
                     else{
+                        //create second number
                         temp = $secondMember.val() + $this.val();
                         $secondMember.val(temp);
                     }
                 }else {
-                    $.Operation( "cancOper" ).publish();
-                    temp = $this.val();
-                    $firstMember.val( temp );
+                    //restart the cicle
+                    if( $operToDo.val() == 'doOperation' ){
+                        $.Operation( "cancOper" ).publish();
+                        temp = $this.val();
+                        $firstMember.val( temp );
+                    } else {
+                        temp = $secondMember.val() + $this.val();
+                        $secondMember.val(temp);
+                        $result.val('');
+                    }
                 }
                 break;
             case 'logicalOper' :
@@ -139,8 +149,12 @@ $.Operation = function( operToDo ) {
                         temp = $this.html();
                         $firstMember.val( $result.val() );
                         $operToDo.val($this.val());
+                        $secondMember.val('');
                     }
                 } else {
+                    if( $operToDo.val() == 'doOperation' ) {
+                        $secondMember.val('');
+                    }
                     temp = $this.html();
                     $firstMember.val( $result.val() );
                     $operToDo.val($this.val());
@@ -159,13 +173,15 @@ $.Operation = function( operToDo ) {
                     } else {
                         $.Operation( 'doOperation' ).publish();
                         temp = $result.val();
-                        $firstMember.val( temp );
+//                        $firstMember.val( temp );
                     }
                 } else {
                     $.Operation( 'doOperation' ).publish();
                     temp = $result.val();
-                    $firstMember.val( temp );
+                    $secondMember.val('');
+//                    $firstMember.val( temp );
                 }
+                $operToDo.val('doOperation');
                 break;
 
         }
